@@ -359,20 +359,20 @@ class ParseXClient:
             response = requests.post(api_url, data=image_data, headers=headers, timeout=180)
         except ConnectionError as e:
             print(f"{e}-{api_url}", flush=True)
-            exit(0)
+            return None
         except Exception as e:
             print(f"{e}-{api_url}", flush=True)
-            exit(0)
+            return None
         
         try:
             result = response.json()
         except Exception as e:
             print(f"{e}", flush=True)
-            exit(0)
+            return None
             
         if result["code"] != 200:
             print(f"code result error {result}", flush=True)
-            exit(0)
+            return None
         
         self.check_version(result["version"])
         

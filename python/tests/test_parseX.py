@@ -5,8 +5,6 @@ import subprocess
 from pathlib import Path
 import cv2
 
-
-
 # 加载配置
 config = json.load(open("config.json"))
 
@@ -36,6 +34,9 @@ class TestPdf2MdParserEngine(unittest.TestCase):
         # 初始化解析器
         parseX_client = px.ParseXClient(app_id, secret_code)
         result = parseX_client.begin_analyze_document_from_url(pdf_file_path)
+        if result is None:
+            print(f"error get result through the url {api_url}")
+            return
 
         json_file = 'test_json/example.json'
         with open(json_file, 'r') as fr:
